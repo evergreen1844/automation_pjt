@@ -4,12 +4,12 @@ import base64
 import requests
 import time
 import json
+
 # unix timestamp 설정
 timestamp = int(time.time() * 1000)
 timestamp = str(timestamp)
-# Ncloud API Key 설정
 
-#입력 필요
+# Ncloud API Key 설정(입력 필요)
 ncloud_accesskey = ""
 ncloud_secretkey = ""
 
@@ -32,6 +32,7 @@ def make_signature():
     signingKey = base64.b64encode(hmac.new(ncloud_secretkey, message, digestmod=hashlib.sha256).digest())
     return signingKey
 #위 코드까지는 Ncloud에서 제공해 주는 Signatuer Key 생성 부분과 동일
+
 # 텍스트 파일에서 instanceNo 값을 읽어와 리스트에 저장
 instanceNo_list = []
 # 아래줄 텍스트 변경 필요
@@ -50,8 +51,9 @@ http_header = {
     #'x-ncp-dmn_cd': 'GOV',
     'x-ncp-region_code': "KR"
 }
-    # instanceNo 값을 하나씩 처리
-    # Process
+
+# instanceNo 값을 하나씩 처리
+# Process
 #for instanceNo_value in instanceNo_list:
 # 요청 바디 (페이로드)
 #    payload = {
@@ -99,4 +101,5 @@ for instanceNo_value in instanceNo_list:
         print(f"요청 성공 - instanceNo: {instanceNo_value}")
         #print(response.json())  # 응답 바디 출력
     else:
+
         print(f"요청 실패 - instanceNo: {instanceNo_value}, status_code: {response.status_code}, response_text: {response.text}")
